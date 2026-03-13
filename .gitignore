@@ -1,0 +1,23 @@
+# Mengabaikan folder library/dependensi (Sangat Penting)
+node_modules/
+client/node_modules/
+server/node_modules/
+
+# Mengabaikan file konfigurasi rahasia (seperti Password DB)
+.env
+server/.env
+
+# Mengabaikan hasil build
+dist/
+client/dist/
+
+# Mengabaikan file log atau temporary
+npm-debug.log*
+.vscode/
+.idea/
+
+# Mengabaikan file dokumen dan database
+*.pdf
+*.sql
+*.db
+*.sqlite
