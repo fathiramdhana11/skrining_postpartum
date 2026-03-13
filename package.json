@@ -1,0 +1,16 @@
+{
+  "name": "skrining-postpartum-root",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "concurrently \"npm run server\" \"npm run client\"",
+    "start:network": "concurrently \"npm run server\" \"npm run client:network\"",
+    "server": "cd server && npm run dev",
+    "client": "cd client && npm run dev",
+    "client:network": "cd client && npm run dev:network",
+    "install:all": "npm install && cd server && npm install && cd ../client && npm install"
+  },
+  "dependencies": {
+    "concurrently": "^8.2.0"
+  },
+  "devDependencies": {}
+}

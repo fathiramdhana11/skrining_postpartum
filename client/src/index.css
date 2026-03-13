@@ -1,0 +1,109 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    overflow-y: scroll;
+  }
+  :root {
+    /* Primary Color: #B68D3D (Antique Gold) -> HSL 40 50% 48% */
+    
+    /* Background: Very Light Warm Cream #FCFAF7 */
+    --background: 40 20% 98%; 
+    
+    /* Foreground: Dark Warm Brown/Grey #423D33 */
+    --foreground: 40 15% 23%;
+
+    /* Card: White */
+    --card: 0 0% 100%;
+    --card-foreground: 40 15% 23%;
+ 
+    --popover: 0 0% 100%;
+    --popover-foreground: 40 15% 23%;
+ 
+    /* Primary: The User's Gold #B68D3D */
+    --primary: 40 50% 48%;
+    --primary-foreground: 0 0% 98%; /* White text on gold button */
+ 
+    /* Secondary: Soft Beige/Sand */
+    --secondary: 40 30% 90%;
+    --secondary-foreground: 40 50% 48%;
+ 
+    /* Muted: Subtle Warm Grey */
+    --muted: 40 20% 94%;
+    --muted-foreground: 40 10% 45%;
+ 
+    /* Accent: Hover states */
+    --accent: 40 30% 90%;
+    --accent-foreground: 40 50% 48%;
+ 
+    /* Destructive: Soft Red */
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+
+    /* Border & Input */
+    --border: 40 20% 88%;
+    --input: 40 20% 88%;
+    --ring: 40 50% 48%; /* Focus ring matches primary */
+ 
+    --radius: 0.5rem;
+  }
+ 
+  .dark {
+    --background: 40 30% 10%;
+    --foreground: 40 10% 90%;
+    --card: 40 25% 13%;
+    --card-foreground: 40 10% 90%;
+    --popover: 40 25% 13%;
+    --popover-foreground: 40 10% 90%;
+    --primary: 40 50% 48%;
+    --primary-foreground: 0 0% 98%;
+    --secondary: 40 20% 20%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 40 20% 20%;
+    --muted-foreground: 40 10% 60%;
+    --accent: 40 20% 20%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 40 20% 20%;
+    --input: 40 20% 20%;
+    --ring: 40 50% 48%;
+  }
+}
+ 
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+@layer utilities {
+  .custom-date-picker::-webkit-calendar-picker-indicator {
+    background: transparent;
+    bottom: 0;
+    color: transparent;
+    cursor: pointer;
+    height: auto;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: auto;
+    z-index: 10;
+  }
+
+  /* Universal Focus Killer for Charts */
+  div[class^="recharts-"] *:focus {
+    outline: none !important;
+  }
+  
+  /* Ensure SVG elements don't show focus ring */
+  svg *:focus {
+    outline: none !important;
+  }
+}
