@@ -52,58 +52,10 @@ export const AnswerDetailDialog = ({
               ))}
             </div>
 
-            {detailScreening.status_penanganan && detailScreening.status_penanganan !== 'Belum Ditangani' && (
-              <div className="mt-8 p-6 rounded-2xl bg-green-50/50 border border-green-100">
-                <h3 className="font-bold text-green-800 mb-4 flex items-center gap-2">
-                  <ShieldCheck className="h-5 w-5" /> Catatan Tindak Lanjut Nakes
-                </h3>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-                  <div className="p-3 bg-white rounded-xl border border-green-100">
-                    <span className="text-[10px] font-bold text-gray-400 uppercase">Status</span>
-                    <p className="font-bold text-green-700">{detailScreening.status_penanganan}</p>
-                  </div>
-                  <div className="p-3 bg-white rounded-xl border border-green-100">
-                    <span className="text-[10px] font-bold text-gray-400 uppercase">Tindakan</span>
-                    <p className="font-bold text-gray-700">{detailScreening.tindakan_nakes || '-'}</p>
-                  </div>
-                </div>
 
-                {/* SOAP Display */}
-                <div className="grid grid-cols-2 gap-3 mb-4">
-                  {[
-                    { label: 'Subjektif (S)', val: detailScreening.soap_s },
-                    { label: 'Objektif (O)', val: detailScreening.soap_o },
-                    { label: 'Assessment (A)', val: detailScreening.soap_a },
-                    { label: 'Planning (P)', val: detailScreening.soap_p },
-                  ].map((item, i) => (
-                    <div key={i} className="p-3 bg-white rounded-xl border border-green-100">
-                      <span className="text-[10px] font-bold text-primary uppercase">{item.label}</span>
-                      <p className="text-xs text-gray-700 whitespace-pre-line mt-1">{item.val || '-'}</p>
-                    </div>
-                  ))}
-                </div>
-
-                {detailScreening.catatan_nakes && (
-                  <p className="text-sm text-gray-600 mt-1 whitespace-pre-line border-t border-green-200/30 pt-1">
-                    {detailScreening.catatan_nakes}
-                  </p>
-                )}
-                <div className="mt-2 pt-2 border-t border-green-200/50 flex justify-between items-center text-[10px] text-gray-400 font-medium">
-                  <span className="flex items-center gap-1">
-                    <ShieldCheck size={10} className="text-green-600" />
-                    Penanggung Jawab: {detailScreening.handled_by_name || 'Bidan'}
-                  </span>
-                  <span>
-                    {detailScreening.handled_at ? new Date(detailScreening.handled_at).toLocaleDateString('id-ID', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' }) : ''}
-                  </span>
-                </div>
-              </div>
-            )}
-
-            <div className="flex gap-2 mt-8">
-              <Button variant="outline" className="flex-1" onClick={() => handlePrint(detailScreening)}>Cetak</Button>
-              <Button variant="outline" className="w-12 border-red-200 text-red-600 hover:bg-red-50" onClick={() => handleDelete(detailScreening)}>
-                <Trash2 className="h-4 w-4" />
+            <div className="flex justify-end mt-8">
+              <Button variant="outline" className="w-full border-red-200 text-red-600 hover:bg-red-50 hover:text-red-700 hover:border-red-300 gap-2 font-bold" onClick={() => handleDelete(detailScreening)}>
+                <Trash2 className="h-4 w-4" /> Hapus Rekaman Skrining
               </Button>
             </div>
           </div>

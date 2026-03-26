@@ -38,10 +38,14 @@ export const ScreeningDetailModal = ({ screening, onClose }) => {
               <span className={`px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest border shadow-sm ${getStatusColor(screening.kategori)}`}>
                 {formatKategori(screening.kategori)}
               </span>
-              <p className={`text-sm font-bold text-center px-6 leading-relaxed ${screening.total_score >= 13 ? 'text-red-600' : screening.total_score >= 9 ? 'text-amber-600' : 'text-emerald-600'}`}>
-                {screening.total_score >= 13 ?
-                  "Skor Bunda menunjukkan perlunya konsultasi lebih lanjut." :
-                  screening.total_score >= 9 ?
+              <p className={`text-sm font-bold text-center px-6 leading-relaxed ${
+                formatKategori(screening.kategori) === 'Terindikasi Gejala Depresi' ? 'text-red-600' :
+                  formatKategori(screening.kategori) === 'Perlu Skrining Ulang' ? 'text-amber-600' :
+                    'text-emerald-600'
+              }`}>
+                {formatKategori(screening.kategori) === 'Terindikasi Gejala Depresi' ?
+                  "Skor Bunda menunjukkan perlunya konsultasi lebih lanjut, harap hubungi bidan." :
+                  formatKategori(screening.kategori) === 'Perlu Skrining Ulang' ?
                     "Bunda disarankan untuk melakukan skrining ulang." :
                     "Hasil skrining Bunda stabil."
                 }
@@ -87,10 +91,10 @@ export const ScreeningDetailModal = ({ screening, onClose }) => {
               )}
             </div>
 
-            {/* 2. SOAP NOTES (ALWAYS DISPLAYED) */}
+            {/* 2. FOLLOW UP & MESSAGES (SOAP HIDDEN FOR PATIENTS) */}
             <div className="space-y-4 pt-4 border-t border-gray-50">
               <h4 className="text-[11px] font-black text-gray-400 uppercase tracking-widest flex items-center gap-2.5">
-                <ShieldCheck size={16} className="text-primary" /> Catatan Rekam Medis (SOAP)
+                <ShieldCheck size={16} className="text-primary" /> Tindak Lanjut & Pesan Bidan
               </h4>
 
               {screening.handled_by_name ? (
@@ -112,28 +116,19 @@ export const ScreeningDetailModal = ({ screening, onClose }) => {
                 </div>
               )}
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                {[
-                  { label: "S (Subjektif)", value: screening.soap_s, color: "text-blue-600" },
-                  { label: "O (Objektif)", value: screening.soap_o, color: "text-purple-600" },
-                  { label: "A (Assessment)", value: screening.soap_a, color: "text-amber-600" },
-                  { label: "P (Planning)", value: screening.soap_p, color: "text-emerald-600" },
-                ].map((item, idx) => (
-                  <div key={idx} className="p-4 rounded-xl bg-gray-50 border border-gray-100 hover:shadow-sm transition-shadow">
-                    <p className={`text-[8px] font-black uppercase tracking-widest mb-2 flex items-center gap-1.5 ${item.color}`}>
-                      <ClipboardCheck size={12} /> {item.label}
-                    </p>
-                    <p className={`text-[11px] leading-relaxed font-semibold ${item.value ? 'text-gray-700' : 'text-gray-300 italic'}`}>
-                      {item.value || 'Belum ada evaluasi'}
-                    </p>
+              {screening.catatan_nakes ? (
+                <div className="p-5 rounded-2xl bg-amber-50/50 border border-amber-100 border-dashed relative overflow-hidden group">
+                  <div className="absolute -top-1 -right-1 opacity-10 group-hover:scale-110 transition-transform">
+                    <HeartPulse size={60} className="text-amber-600" />
                   </div>
-                ))}
-              </div>
-
-              {screening.catatan_nakes && (
-                <div className="p-4 rounded-xl bg-amber-50/50 border border-amber-100 border-dashed">
-                  <p className="text-[8px] font-black text-amber-600 uppercase tracking-widest mb-1">Pesan Bidan</p>
-                  <p className="text-xs text-amber-900/80 leading-relaxed italic font-bold">"{screening.catatan_nakes}"</p>
+                  <p className="text-[9px] font-black text-amber-600 uppercase tracking-widest mb-3 flex items-center gap-2">
+                    <ClipboardCheck size={12} /> Pesan untuk Bunda:
+                  </p>
+                  <p className="text-sm text-amber-900/90 leading-relaxed italic font-bold">"{screening.catatan_nakes}"</p>
+                </div>
+              ) : (
+                <div className="p-5 rounded-2xl bg-gray-50 border border-gray-100 border-dashed">
+                  <p className="text-[10px] font-bold text-gray-300 italic uppercase tracking-wider text-center">Belum ada pesan tambahan dari bidan.</p>
                 </div>
               )}
 
